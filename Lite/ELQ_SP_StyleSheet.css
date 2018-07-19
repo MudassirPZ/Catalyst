@@ -1,0 +1,897 @@
+/* encoding: utf-8*/
+body { transition: filter 0.25s ease-out !important; }
+
+.ELQ_SP_AltaTheme {
+	background-color: transparent !important;
+}
+.ELQ_SP_EloquaIcon {
+	font-family: 'alta-eloqua-ui-icons' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	position: relative !important;
+}
+
+#loading p.loading { display: none; }
+
+#ELQ_SP_App, #ELQ_SP_App *, .ELQ_SP_MessageBoxContent { font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; }
+
+.ELQ_SP_NoSelect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+.ELQ_Draggable { cursor: default; }
+.ELQ_Draggable.ELQ_SP_Dragging { cursor: move; }
+
+.ELQ_SP_Hyperlink { cursor: pointer; font-weight: bold; color: #0572ce; }
+.ELQ_SP_Hyperlink:hover { text-decoration: underline; }
+
+.ELQ_SP_Strong { font-weight: bold !important; }
+.ELQ_SP_BlueStrong { font-weight: bold !important; color: #0572ce !important; }
+.ELQ_SP_RedStrong { font-weight: bold !important; color: #992222 !important; }
+.ELQ_SP_GreenStrong { font-weight: bold !important; color: #00CC00 !important; }
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+
+.ELQ_SP_Lightbox, .ELQ_SP_Lightbox * { box-sizing: border-box; }
+.ELQ_SP_Lightbox
+{
+	border-radius: 4px; border: 1px solid #DDDDDD; padding: 15px; background-color: #FFFFFF; font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 14px; color: #333333; width: 400px; position: fixed; z-index: 99999999; transition: all 0.25s ease-out; opacity: 0; transform: translateY(50px); box-shadow: 0px 0px 10px rgba(0,0,0,0.25);
+}
+.ELQ_SP_Lightbox.ELQ_SP_LB_Show { opacity: 1; transform: translateY(0px); }
+.ELQ_SP_Lightbox .ELQ_SP_LB_Header
+{
+	font-weight: bold; border-bottom: 2px solid #999999; margin-bottom: 10px; line-height: 24px; font-size: 16px; padding-bottom: 10px;
+}
+.ELQ_SP_Lightbox::before
+{
+	content: ""; display: block; position: absolute; z-index: 0; top: 100%; left: 12px; height: 0px; width: 0px;
+	border-width: 12px 8px; border-style: solid; border-color: transparent; border-top-color: #CCCCCC;
+}
+.ELQ_SP_Lightbox .ELQ_SP_LB_Content { position: relative; z-index: 10; }
+
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+.ELQ_SP_PreloaderCircle {
+	width:550px; height:100px; margin:0px; position:relative; top: -30px; left: -15px; display: none;
+}
+.ELQ_SP_AngularLoaded .ELQ_SP_PreloaderCircle { display:block; }
+
+.ELQ_SP_PreloaderCircle:before, .ELQ_SP_PreloaderCircle:after{
+	content:" "; border-radius: 50%; border: solid 1px #999999; position:absolute; width:40px; height:40px; top: 30px;
+	left: 30px; opacity:0; transform-origin: 50% 50%; transform: scale(1); box-sizing: border-box; transition: border 0.25s ease-out;
+}
+
+.ELQ_SP_PreloaderCircle:before {
+	-webkit-animation: ELQ_SP_PreloaderExpandBefore 2s;
+	animation: ELQ_SP_PreloaderExpandBefore 2s;
+}
+.ELQ_SP_PreloaderCircle:after {
+	-webkit-animation: ELQ_SP_PreloaderExpandAfter 2s;
+	animation: ELQ_SP_PreloaderExpandAfter 2s;
+}
+.ELQ_SP_PreloaderCircle:before, .ELQ_SP_PreloaderCircle:after {
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-delay: 0s;
+	-webkit-animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	animation-delay: 0s;
+	animation-iteration-count: infinite;
+}
+
+/* Standard syntax */
+@keyframes ELQ_SP_PreloaderExpandBefore
+{
+	0% { transform: scale(1); opacity:0; }
+	33%{ opacity:1; }
+	66% { transform: scale(2); opacity: 0; }
+	100% { transform: scale(2); opacity: 0; }
+}
+@keyframes ELQ_SP_PreloaderExpandAfter
+{
+	0% { transform: scale(1); opacity:0; }
+	25% { transform: scale(1); opacity:0; }
+	66% { opacity: 1; }
+	100% { transform: scale(2); opacity: 0; }
+}
+@keyframes ELQ_SP_ContractPreloaderMsg
+{
+	0% { max-width: 500px; }
+	50% { max-width: 0px; opacity: 1; }
+	100% { max-width: 0px; opacity: 0; }
+}
+@keyframes ELQ_SP_ContractPreloaderIcon
+{
+	0% { transform: scale(1); }
+	40% { transform: scale(1); }
+	50% { transform: scale(1.2); }
+	100% { transform: scale(0); }
+}
+
+.ELQ_SP_PreloaderIcon
+{
+	border-radius: 100%; background-color: #999999; width: 30px; height: 30px; float: left; position: relative;
+	margin-left: 35px; margin-top: 35px; text-align: center; z-index: 99; transition: all 0.25s ease-out;
+	transform-origin: 50% 50%;
+}
+.ELQ_SP_PreloaderMessage
+{
+	position: relative; top: 50%; transform: translateY(-50%); float: left; height: 40px; width: 500px; max-width: 500px;
+	background-color: #333333; border-radius: 40px; border: 2px solid #999999; line-height: 35px; padding-left: 40px;
+	margin-left: -35px; z-index: 88; font-weight: bold;	font-size: 14px; color: #FFFFFF; transition: all 0.25s ease-out;
+}
+
+.ELQ_SP_AppInitSuccess .ELQ_SP_PreloaderIcon, .ELQ_SP_AppInitSuccess .ELQ_SP_PreloaderCircle::before, .ELQ_SP_AppInitSuccess .ELQ_SP_PreloaderCircle::after
+{
+	animation: ELQ_SP_ContractPreloaderIcon 1 0.25s ease-out forwards; animation-delay: 0.25s;
+}
+.ELQ_SP_AppInitSuccess .ELQ_SP_PreloaderMessage
+{
+	animation: ELQ_SP_ContractPreloaderMsg 1 0.5s ease-out forwards; overflow: hidden; animation-delay: 0.25s;
+}
+
+#ELQ_SP_PreloaderCircle.ELQ_SP_Red:before, #ELQ_SP_PreloaderCircle.ELQ_SP_Red:after { border: solid 1px #992222; }
+#ELQ_SP_PreloaderCircle.ELQ_SP_Red .ELQ_SP_PreloaderMessage { border: 2px solid #992222; }
+#ELQ_SP_PreloaderCircle.ELQ_SP_Red .ELQ_SP_PreloaderIcon { background-color: #992222; }
+
+#ELQ_SP_PreloaderCircle.ELQ_SP_Yellow:before, #ELQ_SP_PreloaderCircle.ELQ_SP_Yellow:after { border: solid 1px #FF9900; }
+#ELQ_SP_PreloaderCircle.ELQ_SP_Yellow .ELQ_SP_PreloaderMessage { border: 2px solid #FF9900; }
+#ELQ_SP_PreloaderCircle.ELQ_SP_Yellow .ELQ_SP_PreloaderIcon { background-color: #FF9900; }
+
+#ELQ_SP_PreloaderCircle.ELQ_SP_Green:before, #ELQ_SP_PreloaderCircle.ELQ_SP_Green:after { border: solid 1px #00CC00; }
+#ELQ_SP_PreloaderCircle.ELQ_SP_Green .ELQ_SP_PreloaderMessage { border: 2px solid #00CC00; }
+#ELQ_SP_PreloaderCircle.ELQ_SP_Green .ELQ_SP_PreloaderIcon { background-color: #00CC00; }
+
+#ELQ_SP_PreloaderCircle.ELQ_SP_Default:before, #ELQ_SP_PreloaderCircle.ELQ_SP_Default:after { border: solid 1px #0572ce; }
+#ELQ_SP_PreloaderCircle.ELQ_SP_Default .ELQ_SP_PreloaderMessage { border: 2px solid #0572ce; }
+#ELQ_SP_PreloaderCircle.ELQ_SP_Default .ELQ_SP_PreloaderIcon { background-color: #0572ce; }
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+#ELQ_SP_ConsoleStatus { box-sizing: border-box; }
+#ELQ_SP_ConsoleStatus * { box-sizing: border-box; }
+#ELQ_SP_ConsoleStatus
+{
+	position: fixed; overflow: visible; bottom: 15px; left: 15px; font-size: 13px; z-index: 9999998; height: 40px;
+}
+#ELQ_SP_ConsoleStatus .ELQ_SP_ConsoleStatus
+{
+	background-color: #FFFFFF; padding: 0px 15px 0px 45px; font-size: 14px; border: 2px solid #0572ce; border-radius: 32px;
+	display: inline-block; height: 40px; line-height: 35px; opacity: 0; max-width: 0%; overflow: hidden; margin-top: -1px;
+	transition: opacity 0.25s ease-out, max-width 0.25s ease-out;
+}
+#ELQ_SP_ConsoleStatus.ELQ_SP_ConsoleHasStatus .ELQ_SP_ConsoleStatus
+{
+	opacity: 1; max-width: 100%;
+}
+/*.ELQ_SP_AngularLoaded #ELQ_SP_ConsoleStatus { transition: all 0.375s ease-out; }*/
+
+
+
+
+
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+#ELQ_SP_CopyAsset, #ELQ_SP_CopyAsset * { box-sizing: border-box; }
+
+.ELQ_SP_AppInitSuccess #ELQ_SP_CopyAsset { display: block !important; }
+#ELQ_SP_CopyAsset
+{
+	position: absolute; right: 15px; bottom: 15px; z-index: 888888;
+}
+#ELQ_SP_CopyAsset .ELQ_SP_CopyAssetEntry
+{
+	padding: 0px; width: 400px; border: 2px solid #0572ce; background-color: #FFFFFF; height: 48px; position: relative;
+	border-radius: 10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.25); background-repeat: no-repeat; background-size: 30px 30px;
+	background-position: 5px center; background-image: url('https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B0230ade1-2835-4a8a-9608-991a4246fcaa%7D_ELQ_SP_CopyAssetIcon.png'); margin-bottom: 10px; transition: all 0.25s ease-out;
+}
+#ELQ_SP_CopyAsset .ELQ_SP_CopyAssetEntry:last-child { margin-bottom: 0px; }
+#ELQ_SP_CopyAsset .ELQ_SP_CopyAssetEntry.ELQ_SP_SUCCESS
+{
+	background-image: url('https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bd2df3186-62a7-4e2e-b02c-f4d81cc15af5%7D_ELQ_SP_SuccessIcon.png'); border-color: #0aa06e;
+}
+#ELQ_SP_CopyAsset .ELQ_SP_CopyAssetEntry.ELQ_SP_ERROR
+{
+	background-image: url('https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bf079572c-519b-4a41-bc17-4015e279f3f0%7D_ELQ_SP_ErrorIcon.png'); border-color: #d93d3d;
+}
+
+#ELQ_SP_CopyAsset .ELQ_SP_CopyAsset_OldName
+{
+	position: absolute; top: 0px; left: 40px; width: calc(100% - 90px); font-size: 11px; color: #0572ce; font-weight: bold;
+	line-height: 20px; display: inline-block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; height: 16px;
+	z-index: 10;
+}
+#ELQ_SP_CopyAsset input, #ELQ_SP_CopyAsset input:disabled
+{
+	outline: 0px !important; vertical-align: middle; height: 30px; border: 0px !important; width: calc(100% - 86px);
+	font-size: 14px; padding-left: 3px; background-color: #FFFFFF; position: absolute; bottom: 0px; left: 36px; text-align: left;
+}
+#ELQ_SP_CopyAsset .ELQ_SP_CopyAsset_Remove
+{
+	float: right; display: block; height: 44px; width: 40px; text-align: center; cursor: pointer; background-color: #0572ce;
+	border-top-right-radius: 5px; border-bottom-right-radius: 5px;
+}
+#ELQ_SP_CopyAsset .ELQ_SP_CopyAsset_Remove img { opacity: 0.5; width: 12px; height: 12px; vertical-align: middle; margin-top: 12px; }
+#ELQ_SP_CopyAsset .ELQ_SP_CopyAsset_Remove:hover img { opacity: 1; }
+
+
+#ELQ_SP_CopyAsset .ELQ_SP_DeleteAsset_Name
+{
+	font-weight: bold; font-size: 14px; width: calc(100% - 50px); max-height: 30px; border: 0px !important;
+	background-color: #FFFFFF; position: absolute; top: 50%; left: 40px; white-space: nowrap; text-overflow: ellipsis;
+	overflow: hidden; transform: translateY(-50%);
+}
+
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+@keyframes ELQ_SP_FadeInBtnMain
+{
+	0% { transform: scale(0); opacity: 0; }
+	75% { transform: scale(1.2); opacity: 0.75; }
+	90% { transform: scale(0.9); opacity: 0.9; }
+	100% { transform: scale(1); opacity: 1; }
+}
+
+#ELQ_SP_BtnMain { transform: scale(0); opacity: 0; }
+#ELQ_SP_App.ELQ_SP_AppInitSuccess #ELQ_SP_BtnMain { animation: ELQ_SP_FadeInBtnMain 1 0.25s ease-out forwards; }
+
+.ELQ_SP_Dialog, .ELQ_SP_Dialog * { box-sizing: border-box; }
+
+#ELQ_SP_MessageBox
+{
+	position: fixed; z-index: 9999999; opacity: 0; top: 0px; left: 0px; right: 0px; bottom: 0px;\
+}
+#ELQ_SP_MessageBox .ELQ_SP_MessageBoxBackDrop
+{
+	position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; background-color: rgba(0,0,0,0.85);
+}
+#ELQ_SP_MessageBox .ELQ_SP_MessageBoxContent
+{
+	position: absolute; background-color: #FFFFFF; border: 2px solid #EEEEEE; font-weight: normal; font-size: 16px; border-radius: 6px; padding: 45px 30px; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%);
+}
+.ELQ_SP_CloseMessage
+{
+	width: 24px; height: 24px; position: absolute !important; top: 10px; right: 10px; opacity: 0.5; cursor: pointer; padding: 7px;
+}
+.ELQ_SP_CloseMessage:hover { opacity: 1 !important; }
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+#ELQ_SP_Console
+{
+    position: fixed; top: calc(100vh - 55px); left: 0px; z-index: 9999999; height: 100px; width: 550px;
+}
+
+#ELQ_SP_App.ELQ_SP_HideLoader #ELQ_SP_Console { height: initial; width: initial; left: 15px; overflow: hidden; }
+
+#ELQ_SP_Console #ELQ_SP_BtnMain
+{
+    background-color: #111111; border: 2px solid #666666; color: #FFFFFF; font-weight: bold; height: 40px; width: 40px;
+	border-radius: 100%; cursor: pointer; z-index: 2; position: relative; background-size: 75% auto; background-repeat: no-repeat;
+	background-position: center center; background-image: url('https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bee523c5f-cf10-49ff-b96f-8a8974169f28%7D_ELQ_SP_Console_Button_Image.png');
+}
+.ELQ_SP_AngularLoaded #ELQ_SP_BtnMain { transition: all 0.25s ease-out; }
+
+
+
+
+@keyframes ELQ_SP_BtnMainBusySpinner
+{
+	0% { transform: rotateZ(0deg); }
+	100% { transform: rotateZ(360deg); }
+}
+
+#ELQ_SP_Console.ELQ_SP_Busy #ELQ_SP_BtnMain::before {
+	content: ""; display: block; width: 100%; height: 100%; box-sizing: border-box; border: 4px solid transparent;
+	border-top: 4px solid #0572ce; border-radius: 100%; position: absolute; z-index: 10; top: 0px; left: 0px;
+	transform-origin: 50% 50%; animation: ELQ_SP_BtnMainBusySpinner 1s linear infinite; background-color: #000000;
+}
+#ELQ_SP_Console.ELQ_SP_Busy #ELQ_SP_BtnMain::after {
+	content: ""; display: block; width: 16px; height: 16px; box-sizing: border-box; background-color: #0572ce;
+	border-radius: 100%; position: absolute; z-index: 20; top: 10px; left: 11px;
+}
+
+
+
+
+
+
+.ELQ_SP_Dialog button:active, .ELQ_SP_Dialog button:focus, .ELQ_SP_Dialog input:active, .ELQ_SP_Dialog input:focus
+{ outline: none !important; }
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+#ELQ_SP_Console.ELQ_SP_Class_ShowConsole #ELQ_SP_BtnMain
+{
+	background-color: #0572ce; border: 2px solid #90adda; background-image: url('https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bf20aea3f-525a-4ee1-a569-ff06be5e7b8d%7D_ELQ_SP_Console_Button_GlowImage.png');
+}
+
+#ELQ_SP_Console #ELQ_SP_BtnClose
+{
+	width: 20px; height: 20px; position: absolute; top: 15px; right: 15px; background-color: transparent !important;
+	border: 0px !important; cursor: pointer; background-position: center center; background-repeat: no-repeat;
+	background-size: 16px 16px; background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B4e5a5a0f-d8f1-4ce6-afda-bdc28db99776%7D_close_button.png");
+}
+
+#ELQ_SP_Console .ELQ_SP_Class_ConsoleOpts_BackDrop
+{
+	background-color: rgba(0,0,0,0); position: fixed; top: 50%; left: 50%; width: 0vw; height: 0vh; z-index: 1;
+	transition: all 0.25s ease-out; transform: translateX(-50%) translateY(-50%); overflow: hidden;
+}
+#ELQ_SP_Console.ELQ_SP_Class_ShowConsole .ELQ_SP_Class_ConsoleOpts_BackDrop
+{
+	background-color: rgba(0,0,0,0.8); width: 100vw; height: 100vh;
+}
+@keyframes ELQ_SP_Anim_FadeInConsoleOpts
+{
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+#ELQ_SP_Console .ELQ_SP_Class_ConsoleOpts
+{
+	color: #FFFFFF; position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); opacity: 0;
+	width: 100%; padding: 15px 30px;
+}
+#ELQ_SP_Console.ELQ_SP_Class_ShowConsole .ELQ_SP_Class_ConsoleOpts
+{
+	animation: ELQ_SP_Anim_FadeInConsoleOpts 0.25s ease-out forwards 1; animation-delay: 0.25s;
+}
+
+#ELQ_SP_Console .ELQ_SP_Class_ConsoleOptsContainer
+{
+	width: 100%; max-width: 720px; margin: 0 auto;
+}
+
+#ELQ_SP_Console .ELQ_SP_Class_ConsoleOpts h3 { text-align: center; margin-bottom: 30px; }
+#ELQ_SP_Console .ELQ_SP_Class_ConsoleOpts h3 span
+{
+	border-bottom: 2px solid #0572ce; text-transform: uppercase;
+}
+#ELQ_SP_Console .ELQ_SP_Class_ConsoleOpts .ELQ_SP_ConsoleOption
+{
+	border: 0px; padding: 10px; color: #333333; font-size: 12px; cursor: pointer; margin-bottom: 10px;
+	text-align: center; background-color: #EEEEEE !important; width: calc(50% - 15px); font-weight: bold; margin-left: 10px;
+}
+#ELQ_SP_Console .ELQ_SP_Class_ConsoleOpts .ELQ_SP_ConsoleOption:hover { background-color: #0572ce !important; color: #FFFFFF; }
+#ELQ_SP_Console .ELQ_SP_Class_ConsoleOpts .ELQ_SP_ConsoleOption:hover .ELQ_SP_BlueStrong { color: #333333 !important; }
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+.ELQ_SP_Popup
+{
+	background-color: #CCCCCC; border: 1px solid #0572ce; border-radius: 4px; top: 50%; left: 50%;
+	transform: translateX(-50%) translateY(-50%); position: absolute; z-index: 999990;
+}
+.ELQ_SP_Popup.ELQ_SP_PU_Large { width: calc(100vw - 30px); max-width: 900px; }
+.ELQ_SP_Popup .ELQ_SP_Popup_Header
+{
+	display: table; float: none; width: 100%; padding: 6px 10px; border-bottom: 2px solid #CCCCCC; background-color: #F5F5F5;
+}
+.ELQ_SP_Popup .ELQ_SP_Popup_Header .ELQ_SP_PH_Element, .ELQ_SP_Popup .ELQ_SP_Popup_Header .ELQ_SP_PH_Element
+{
+	display: table-cell; float: none; width: 35%; height: 24px !important; border-collapse: collapse; vertical-align: middle;
+}
+
+
+#ELQ_SP_FieldMergeBrowser, #ELQ_SP_LPBrowser { width: 500px; }
+.ELQ_SP_Popup .ELQ_SP_FMB_Title
+{
+	font-weight: bold; font-size: 14px; text-align: center; padding: 10px; background-color: #0572ce; color: #FFFFFF;
+}
+.ELQ_SP_Popup .ELQ_SP_FMB_Title .ELQ_SP_CloseMessage { top: 4px; right: 4px; }
+/*#ELQ_SP_FieldMergeBrowser .ELQ_SP_Icon_Btn { width: 7.5% !important; }*/
+#ELQ_SP_FieldMergeBrowser .ELQ_SP_Popup_Header button { width: 15%; }
+#ELQ_SP_FieldMergeBrowser #ELQ_SP_TextBox_FMBSearch, #ELQ_SP_LPBrowser #ELQ_SP_TextBox_LPFUSearch
+{
+	width: 50%; padding: 3px; border: 1px solid #AAAAAA; border-right: 0px;
+}
+#ELQ_SP_FieldMergeBrowser .ELQ_SP_Popup_Header button img { height: 100%; width: auto; margin: 0px; vertical-align: middle; }
+.ELQ_SP_FMB_ListContainer { height: 350px; overflow: auto; }
+
+.ELQ_SP_FMB_ListContainer .ELQ_SP_FMB_ListNoResults
+{
+	position: absolute; top: 50%; text-align: center; overflow: hidden; width: 100%; line-height: 30px; color: #111111;
+	font-weight: bold; transform: translateY(-50%);
+}
+
+.ELQ_SP_FMB_ListContainer .ELQ_SP_FMB_ListRow
+{
+	padding: 5px; padding-left: 10px; border-bottom: 1px solid #DDDDDD; font-size: 13px;
+	background-color: #F0F0F0; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
+}
+.ELQ_SP_FMB_ListContainer .ELQ_SP_FMB_ListRow.ELQ_SP_FMB_LRHoverable { cursor: pointer; }
+.ELQ_SP_FMB_ListContainer .ELQ_SP_FMB_ListContainer .ELQ_SP_FMB_ListRow:nth-child(even)
+{
+	background-color: #F5F5F5;
+}
+.ELQ_SP_FMB_ListContainer .ELQ_SP_FMB_ListRow.ELQ_SP_FMB_LRHoverable.ELQ_SP_FMB_Selected, .ELQ_SP_FMB_ListContainer .ELQ_SP_FMB_ListRow.ELQ_SP_FMB_LRHoverable:hover { background-color: #0572ce !important; color: #FFFFFF; }
+.ELQ_SP_Popup .ELQ_SP_Popup_Content
+{
+	background-color: #F5F5F5; padding: 10px; font-size: 12px; border-top: 1px solid #DDDDDD; line-height: 20px; min-height: 120px;
+}
+.ELQ_SP_FMB_ListRow img { vertical-align: sub; }
+.ELQ_SP_FMB_ListRow.ELQ_SP_FMB_LRHoverable:hover img, .ELQ_SP_FMB_ListRow.ELQ_SP_FMB_LRHoverable.ELQ_SP_FMB_Selected img { filter: brightness(500%) contrast(250%); }
+
+
+.ELQ_SP_FMB_StatusBar { font-size: 13px; padding: 10px; }
+
+
+#ELQ_SP_NamingGenerator .ELQ_SP_Popup_Header span { width: 100px; font-size: 14px; }
+#ELQ_SP_NamingGenerator .ELQ_SP_Popup_Header input, #ELQ_SP_NamingGenerator .ELQ_SP_Popup_Header select
+{
+	padding: 0px 10px; height: 30px; font-weight: bold; width: 120px;
+}
+#ELQ_SP_NamingGenerator .ELQ_SP_Popup_Header input { width: calc(100% - 120px); }
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+.ELQ_SP_ShowNG { display: block !important; }
+
+.ELQ_SP_TblForm { width: 100%; }
+.ELQ_SP_NG_AssetName, .ELQ_SP_FormControl input:focus, .ELQ_SP_FormControl select:focus
+{ border: 1px solid #0572ce !important; }
+.ELQ_SP_FormControl { padding-bottom: 5px; }
+.ELQ_SP_FormControl input, .ELQ_SP_FormControl select
+{
+	padding: 6px 12px; width: 100%; display: block; border: 1px solid #CCCCCC;
+}
+.ELQ_SP_FormControl input:disabled, .ELQ_SP_FormControl select:disabled
+{
+	background-color: #F5F5F5;
+}
+.ELQ_SP_TblForm td:nth-child(n+2) { padding-left: 15px; }
+.ELQ_SP_TblForm button
+{
+	display: inline-block; width: 120px; height: 22px; line-height: 20px; border: 1px solid #c4ced7; color: #000; font-size: 12px; font-weight: bold;
+    line-height: 20px; text-align: center; background: #e4e8ea; vertical-align: baseline; margin: 0; padding: 0; outline: 0;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    background: -webkit-gradient(linear, left top, left bottom, from(#f1f3f3), to(#e3e7e9));
+    background: -moz-linear-gradient(top, #f1f3f3, #e3e7e9);
+}
+.ELQ_SP_FormControl button.BtnMain
+{
+	color: #ffffff;
+    background-color: #0572ce;
+    background: -webkit-linear-gradient(bottom, #0470c9, #0571cd, #0479d8);
+    background: -moz-linear-gradient(bottom, #0470c9, #0571cd, #0479d8);
+    border: 1px solid #0476d3;
+    box-shadow: 0px 0px;
+}
+.ELQ_SP_FormControl button:hover { background: none; color: #0572ce; background-color: #f7f8f9; border-color: #c4ced7; }
+.ELQ_SP_FormControl button.BtnMain:hover { color: #FFFFFF; background: #3a9aea; border: 1px solid #3a9aea; }
+
+.ELQ_SP_FormControl button.BtnMain:disabled
+{
+	color: #cde3f5;
+    font-weight: bold;
+    background: #9bc7eb;
+    border: 1px solid #9bc7eb;
+}
+
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+#ELQ_SP_CampaignSearch
+{
+	position: fixed; z-index: 9999999; height: 30px; width: 350px; bottom: 15px; right: 15px; box-sizing: border-box;
+}
+#ELQ_SP_CampaignSearch * { box-sizing: border-box; }
+#ELQ_SP_CampaignSearch input
+{
+	height: 40px; display: block; width: 100%; border-radius: 15px; padding-left: 30px; line-height: 40px; background-color: #FFFFFF;
+	border: 2px solid #333333; outline: 0px !important; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
+	position: relative; z-index: 10; padding-right: 15px; background-repeat: no-repeat; background-position: 7px center;
+	background-size: 16px auto; background-image: url('https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Ba4be521d-642a-4c3f-b81c-c6f1fcbb210c%7D_search-icon.png');
+}
+#ELQ_SP_CampaignSearch .ELQ_SP_CS_Matches
+{
+	position: absolute; left: 15px; transform: translateX(-100%); height: 30px; top: 5px; min-width: 30px; background-color: #0572ce;
+	color: #FFFFFF; text-align: center; line-height: 30px; white-space: nowrap; font-size: 12px; padding-right: 20px; z-index: 9;
+	border-radius: 15px; padding-left: 10px;
+}
+#ELQ_SP_CampaignSearch.ELQ_SP_ShowCampaignSearch { display: block !important; }
+
+.ELQ_SP_CampaignSearch_HL { background-color: rgba(255,255,0,0.25) !important; }
+.ELQ_SP_CampaignSearch_Current { border: 2px solid #CC6600 !important; }
+
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+#ELQ_SP_EmailTestCenter
+{
+	position: fixed; z-index: 9999999; height: 30px; width: 350px; bottom: 30px; right: 30px; box-sizing: border-box;
+}
+#ELQ_SP_EmailTestCenter * { box-sizing: border-box; font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 14px; }
+#ELQ_SP_EmailTestCenter.ELQ_SP_ShowEmailTestCenter { display: block !important; }
+#ELQ_SP_EmailTestCenter .ELQ_SP_ETC_Title
+{ font-size: 10px; color: #FFFFFF; background-color: #333333; height: 16px; line-height: 16px; padding: 0px 15px; }
+#ELQ_SP_EmailTestCenter .ELQ_SP_ETC_List
+{
+	position: absolute; z-index: 10; bottom: 30px; height: 300px; overflow: auto; width: 100%; background-color: #FFFFFF;
+	border-top-left-radius: 5px; border-top-right-radius: 5px; border: 1px solid #DDDDDD;
+}
+#ELQ_SP_EmailTestCenter .ELQ_SP_ETC_List .ELQ_SP_ETC_ListEntry
+{
+	white-space: nowrap;
+    font-size: 12px;
+    padding: 8px 15px;
+    border-bottom: 1px solid #EEEEEE;
+    border-collapse: collapse;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+#ELQ_SP_EmailTestCenter .ELQ_SP_ETC_List .ELQ_SP_ETC_ListEntry:hover { background-color: #0572ce; color: #FFFFFF; }
+#ELQ_SP_EmailTestCenter #ELQ_SP_ETC_Textbox { font-weight: bold; }
+#ELQ_SP_EmailTestCenter #ELQ_SP_ETC_Textbox.ELQ_SP_ETC_Invalid
+{
+	background-color: rgb(242,220,219); color: rgb(150,54,52);
+}
+
+
+/*----------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------*/
+.catalyst-campaign-tools-item
+{
+	height: 30px !important; border: none !important; background-color: transparent !important; line-height: 20px !important;
+	padding: 5px !important;
+}
+.catalyst-campaign-tools-item:hover
+{
+	background: #ebeced !important; color: #262626 !important; border: none !important;
+}
+
+/*----------------------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------THE CAMPAIGN SIMULATOR-------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------*/
+#ELQ_SP_CampaignSimulator, #ELQ_SP_CampaignSimulator * { box-sizing: border-box; font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; }
+#ELQ_SP_CampaignSimulator { position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; z-index: 99999999; padding: 30px; }
+#ELQ_SP_CampaignSimulator.ShowCSimulator { display: block !important; }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Backdrop
+{
+	position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; z-index: 0; background-color: rgba(0,0,0,0.8);
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Content
+{
+	position: relative; height: 100%; width: 100%; z-index: 10; background-color: #FFFFFF; border-radius: 10px;
+	
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Title
+{
+	position: relative; height: 40px; line-height: 40px; padding-left: 15px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; font-size: 14px; text-align: left; text-transform: uppercase; font-weight: bold; color: #333333;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Artboard
+{
+	position: relative; height: calc(100% - 120px); overflow: auto; border-top: 2px solid #CCCCCC; border-bottom: 2px solid #CCCCCC;
+	background-color:#FFFFFF;
+	background-image: linear-gradient(#EEEEEE 2px, transparent 2px),
+	linear-gradient(90deg, #EEEEEE 2px, transparent 2px),
+	linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
+	linear-gradient(90deg, rgba(0,0,0,.05) 1px, transparent 1px);
+	background-size:50px 50px, 50px 50px, 10px 10px, 10px 10px;
+	background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control
+{
+	position: relative; height: 80px; white-space: nowrap; text-overflow: ellipsis;	padding: 0px 15px; padding-top: 10px;
+	z-index: 9999;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_ControlLabel { display: block; font-size: 12px; margin-bottom: 5px; }
+
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_ContactSearch { position: relative; }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_ContactSearch .ELQ_SP_CSim_CS_Results
+{
+	position: absolute; bottom: 40px; left: 0px; height: 300px; max-height: 300px; width: 100%; background-color: #999999; color: #333333;
+	border: 2px solid #0572ce; overflow: auto;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_ContactSearch .ELQ_SP_CSim_CS_Loading
+{
+	position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; z-index: 9999; background-color: #FFFFFF; color: #333333;
+	font-weight: bold; text-align: center; padding: 30px 15px;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_ContactSearch .ELQ_SP_CSim_CS_Entry
+{
+	position: relative; width: 100%; font-size: 12px; line-height: 16px; padding: 5px; background-color: #FFFFFF;
+	border-bottom: 1px solid #999999; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_CS_Entry:hover, #ELQ_SP_CampaignSimulator .ELQ_SP_CSim_CS_Entry.Highlighted
+{
+	background-color: #0572ce !important; color: #FFFFFF;
+}
+#ELQ_SP_CampaignSimulator contactname { font-size: 11px; display: block; }
+#ELQ_SP_CampaignSimulator contactemail { display: block; font-weight: bold; }
+
+
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_SelectedContact,
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_SelectedEntryPoint,
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_ScenarioController
+{
+	position: relative; width: 100%; font-size: 12px; padding: 5px;	border-bottom: 1px solid #999999; padding-left: 10px; padding-right: 30px; line-height: 24px !important; background-color: #CCCCCC !important; color: #111111; font-weight: bold;
+	white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
+}
+
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_SelectedEntryPoint { background-color: #aed292 !important; color: #333333; }
+
+
+
+
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_ScenarioController { background-color: #ed9286 !important; cursor: pointer; color: #FFFFFF !important; }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_Scenarios { position: relative; }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_ScenariosList
+{
+	position: absolute; bottom: 40px; left: 0px; height: 400px; overflow: auto; border: 2px solid #0572ce; background-color: #999999;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_ScenarioEntry
+{
+	position: relative; width: 100%; font-size: 12px; background-color: #FFFFFF; border-bottom: 1px solid #CCCCCC; height: 40px;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_Scenario_Label
+{
+	width: calc(100% - 70px); padding: 5px; float: left; height: 40px; cursor: pointer;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_Scenario_Label:hover { background-color: #EEEEEE; }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_Scenario_Lbl_Name,
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_Scenario_Lbl_Desc
+{ white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_Scenario_Lbl_Name { font-weight: bold; }
+
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_Scenario_Chkbox
+{
+	float: left; width: 60px; height: 20px; border: 1px solid #CCCCCC; overflow: hidden; border-radius: 20px; margin-top: 10px;
+	display: inline-block; cursor: pointer; font-size: 10px; margin-right: 10px;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_Scenario_Chkbox input { display: none; }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_Scenario_ChkLbl
+{
+	width: 100px; margin-left: 0px; transition: margin-left 0.25s ease-out; display: inline-block; position: relative;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_Scenario_Chkbox input:checked+.ELQ_SP_CSim_Scenario_ChkLbl { margin-left: -41px; }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_SE_ChkText
+{
+	height: 20px; line-height: 18px; width: 50px; text-align: center; font-weight: bold; color: #FFFFFF; display: inline-block;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_SE_ChkText:first-child
+{ background-color: #EE6666; padding-right: 5px; z-index: 1; }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_SE_ChkText:last-child
+{ background-color: #449944; padding-left: 5px; z-index: 2; }
+
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CSim_SE_ChkKnob
+{
+	width: 20px; border: 1px solid #CCCCCC; background-color: #FFFFFF; border-radius: 100%; display: inline-block; height: 20px;
+	position: absolute; left: 50%; top: -1px; z-index: 3; transform: translateX(-50%);
+}
+
+
+
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Control .ELQ_SP_CloseMessage { top: 5px !important; right: 5px !important; }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimulator_Contact .ELQ_SP_CloseMessage
+{ top: 0px !important; right: 0px !important; padding: 0px !important; height: 10px !important; width: 10px !important; }
+
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_Artboard .ELQ_SP_CSim_Loading
+{
+	position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); font-size: 18px; color: #999999; font-weight: bold;
+}
+
+.ELQ_SP_CSimulator_Contact { position: absolute; top: 0px; left: 0px; height: 56px; width: 55px; background-size: 75% auto !important; background-repeat: no-repeat !important; background-position: center center !important; z-index: 1000; background-color: transparent !important; border: 2px solid transparent; }
+.ELQ_SP_CSimulator_Contact.Icon1
+{ background-image: url('https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B100fae91-1c71-4aa0-b4e1-9bd5cd439d9f%7D_CampaignUserIcon_Male1.png') !important; }
+.ELQ_SP_CSimulator_Contact.Icon2
+{ background-image: url('https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B0dc76240-fd2e-42be-8e5e-9e0ed1291886%7D_CampaignUserIcon_Male2.png') !important; }
+.ELQ_SP_CSimulator_Contact.Icon3
+{ background-image: url('https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B01d025bb-437d-4b5b-97b2-6cc1e7517128%7D_CampaignUserIcon_Male3.png') !important; }
+.ELQ_SP_CSimulator_Contact.Icon4
+{ background-image: url('https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B1cd062dd-a25c-49fd-8d4c-cbdc6cb4f816%7D_CampaignUserIcon_Female1.png') !important; }
+.ELQ_SP_CSimulator_Contact.Icon5
+{ background-image: url('https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bae4c8cc7-fa80-45f9-b1ed-31186f3302bc%7D_CampaignUserIcon_Female2.png') !important; }
+.ELQ_SP_CSimulator_Contact.Icon6
+{ background-image: url('https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bb21dadb3-b4b0-4c37-a213-ab88767f9124%7D_CampaignUserIcon_Female3.png') !important; }
+.ELQ_SP_CSimulator_Contact.Icon0
+{ background-image: url('https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B79cbf942-70df-442c-9213-80defbcbdc6a%7D_CampaignUserIcon_Unknown.png') !important; }
+
+.ELQ_SP_CSim_ContactCtrl::before
+{
+	content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 100%; border: 1px solid rgba(0,0,0,0.15);
+	position: absolute; bottom: -6px; left: calc(50% - 3px); z-index: 10; background-color: #CC6666;
+}
+.ELQ_SP_CSim_ContactCtrl.HasStartingPoint::before
+{
+	background-color: #66CC66;
+}
+.ELQ_SP_CSimulator_Contact .ELQ_SP_CSimulator_ContactInfo
+{
+	font-size: 10px; font-weight: bold; position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); padding: 3px; background-color: rgba(255,255,255,0.8);
+}
+
+.ELQ_SP_CSimulator_Contact.ELQ_SP_CSim_ContactCtrl
+{
+	background-color: transparent !important; border-color: transparent !important; position: relative !important;
+}
+.ELQ_SP_CSimulator_Contact.Picked { border: 2px solid #0572ce !important; }
+.ELQ_SP_CSimulator_Contact.Picked .ELQ_SP_CSimulator_ContactInfo { color: #0572ce !important; }
+.ELQ_SP_CSimulator_Contact.SendToBack { z-index: 0 !important; }
+
+.ELQ_SP_CSim_ScenarioPopup
+{
+	position: absolute; top: 50%; left: 55px; transform: translateY(-50%); border-radius: 4px; border: 1px solid #CCCCCC;
+	background-color: #FFFFFF; font-size: 12px; z-index: 100; padding: 5px; min-width: 300px; max-width: 400px;
+}
+.ELQ_SP_CSim_ScenarioPopup::before
+{
+	content: ""; display: block; width: 0px; height: 0px; border: 7px solid transparent; border-top-color: #FFFFFF;
+	border-left-color: #FFFFFF; transform-origin: 50% 50%; transform: rotateZ(-45deg) translateY(-50%);
+	top: 50%; left: 0px; z-index: 101; position: absolute;	
+}
+.ELQ_SP_CSim_ScenarioPopup .ELQ_SP_CSim_ScenarioPopupTitle { text-align: center; font-weight: bold; white-space: nowrap; border-bottom: 1px solid #DDDDDD; padding: 0px 5px 5px 0px; margin-bottom: 5px; text-overflow: ellipsis; overflow: hidden; }
+.ELQ_SP_CSim_ScenarioPopup .ELQ_SP_CSim_ScenarioPopupTitle:hover { overflow: visible; padding-left: 2px; }
+.ELQ_SP_CSim_ScenarioPopup .ELQ_SP_CSim_ScenarioContact { display: block; white-space: nowrap; }
+.ELQ_SP_CSim_ScenarioPopup input[type=checkbox] { height: 14px; width: 14px; vertical-align: middle; }
+
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl
+{
+	position: absolute; width: 250px; height: 55px; padding-left: 65px; background-position: 1.5pt center; background-repeat: no-repeat; background-size: auto; font-size: 12px; color: #454545; cursor: default;
+	transform-origin: 27px 28px;
+}
+#ELQ_SP_CampaignSimulator .DisableStep { opacity: 0.75; }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ParentNode { cursor: pointer; z-index: 2000 !important; }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ParentNode:hover { filter: brightness(105%); }
+
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignContactListMembershipRule
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bb48ff47f-13ac-424c-8e5f-776fdee8d4fd%7D_CampaignContactListMembershipRule.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignEmailSentRule
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B17dbc3d1-3840-4701-887e-5b9dc1f165e5%7D_CampaignEmailSentRule.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignEmailOpenedRule
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Ba3312bfb-65ef-4e8d-a215-1c9166778ab8%7D_CampaignEmailOpenedRule.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignEmailClickthroughRule
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bd58347c2-f1a1-4e85-86bf-57e4385e3468%7D_CampaignEmailClickthroughRule.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignContactFilterMembershipRule
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bfc30995e-382f-45ef-b311-13801683a21f%7D_CampaignContactFilterMembershipRule.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignSubmitFormRule
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B29ce6047-5096-4d55-b82c-ecf1cfbb82d5%7D_CampaignSubmitFormRule.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignWebsiteVisitRule
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B13a921cf-0eae-4fb8-9b87-163d9df90700%7D_CampaignWebsiteVisitRule.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignContactFieldComparisonRule
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bcdfa61ab-3dd4-4164-8d57-60c7502a0cd8%7D_CampaignContactFieldComparisonRule.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignCustomObjectFieldComparisonRule
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B88ba0ab8-a2f2-46a9-acfd-f3d03a5d745b%7D_CampaignCustomObjectFieldComparisonRule.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignAddToContactListAction
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B89e16b22-77cf-42f9-b0a5-9781484ef609%7D_CampaignAddToContactListAction.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignMoveToContactListAction
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bdf514378-074f-4e50-a4d6-c0d454dd8518%7D_CampaignMoveToContactListAction.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignRemoveFromContactListAction
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B5e7b5541-a7c0-44ac-ac1a-dfd8277f156b%7D_CampaignRemoveFromContactListAction.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignAddToCampaignAction
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B73ec8038-7973-48a8-8416-a4348503845e%7D_CampaignAddToCampaignAction.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignMoveToCampaignAction
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B9fdd3f26-a89e-414b-a70d-fc4fbbf7c9aa%7D_CampaignMoveToCampaignAction.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignAddToProgramBuilderAction
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B465ae7cc-facd-4344-9488-bec6f9568108%7D_CampaignAddToProgramBuilderAction.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignMoveToProgramBuilderAction
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bfd365bdb-cd24-48a2-9551-a34efa94f189%7D_CampaignMoveToProgramBuilderAction.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CanvasAddToProgramAction
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bb84745bb-1714-4100-9feb-1843dce6c79d%7D_CanvasAddToProgramAction.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CanvasMoveToProgramAction
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B9f009d63-c2a6-40b2-9598-b6002492da48%7D_CanvasMoveToProgramAction.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignWaitAction
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Be753b15b-e701-4319-9f06-ee538a796e48%7D_CampaignWaitAction.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignSegment
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Be6e66e6a-20e5-4890-98aa-bb2be680fe55%7D_CampaignSegment.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignInput
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B10f8d1e3-c5ed-434e-b554-96c21b0e6960%7D_CampaignInput.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignForm
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B86476d44-dbe7-4080-acf8-c73c346f522f%7D_CampaignForm.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignCloudAction
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bf82ab3fa-9fe9-458d-b76e-4f67a022395e%7D_CampaignCloudAction.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignCloudRule
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B8cca1313-b111-4aa0-a0f0-af0e98c7b630%7D_CampaignCloudRule.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignCloudFeeder
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B5ab385b6-4ff1-4076-8dc0-ecec929c6c45%7D_CampaignCloudFeeder.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignEmail
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7Bfbe1df8d-76a6-4afd-822a-a711c85324d5%7D_CampaignEmail.png");
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl.ELQ_SP_CSim_CampaignLandingPage
+{
+	background-image: url("https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B2d559ae4-a870-4f8d-82b8-b065b3f8d434%7D_CampaignLandingPage.png");
+}
+
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl .ELQ_SP_CSim_StepIcon
+{
+	width: 55px; height: 56px; display: inline-block; position: absolute; top: 0px; left: 0px;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl .ELQ_SP_CSim_StepDesc
+{
+	white-space: nowrap; text-overflow: ellipsis; overflow: hidden; font-weight: bold;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl .ELQ_SP_CSim_StepDate { font-weight: normal; }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl:hover { z-index: 500 !important; background-color: #FFFFFF }
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl:hover .ELQ_SP_CSim_StepTitle,
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl:hover .ELQ_SP_CSim_StepDesc
+{
+	text-overflow: initial; overflow: visible; width: auto; display: inline-block; background-color: #FFFFFF;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSimEl .ELQ_SP_CSim_StepTitle
+{
+	font-weight: bold; margin-bottom: 2px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; color: #0572ce;
+	display: block !important;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_FormControl
+{
+	float: left; margin-right: 15px;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CSim_FormControl input, #ELQ_SP_CampaignSimulator .ELQ_SP_CSim_FormControl select
+{
+	height: 34px;
+}
+#ELQ_SP_CampaignSimulator .ELQ_SP_CampTimezone
+{
+	font-size: 11px; font-weight: bold; line-height: 40px; float: right; margin-right: 45px;
+}

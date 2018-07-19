@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+	<script src="jquery.min.js"></script>
+	<script src="angular.min.js"></script>
+	<link href="ELQ_SP_StyleSheet.css?donotcache=true" id="ELQ_SP_StyleSheet" rel="stylesheet"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+	
+	<style>
+		
+		body
+		{
+			width: 300px; padding: 5px 15px; color: #333333; margin: 0px; font-size: 12px;
+			font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+		}
+		body * { box-sizing: border-box; }
+		
+		.Extn_Header
+		{
+			font-size: 13px; font-weight: bold; text-align: center; padding: 15px 0px; border-bottom: 1px solid #CCCCCC; margin-bottom: 15px; position: relative;
+		}
+		
+		
+		
+		.Master_CheckBox { display: inline-block; position: absolute; left: 0px; top: 5px; }
+		.Master_CheckBox input { display: none; }
+		.Master_CheckBox .Master_ChkBoxDiv label
+		{
+			display: inline-block; width: 30px; border-radius: 30px; vertical-align: middle; height: 30px; position: relative;
+			background-color: #AAAAAA; margin-right: 10px; transition: all 0.2s ease-out; cursor: pointer;
+			box-shadow: 0px 0px 10px rgba(0,0,0,0.25);
+		}
+		.Master_CheckBox .Master_ChkBoxDiv span
+		{
+			display: inline-block; width: 26px; height: 26px; border-radius: 100%; vertical-align: top; top: 2px; left: 2px;
+			background-color: #FFFFFF; position: absolute; transition: all 0.2s ease-out;
+		}
+		.Master_CheckBox input~.Master_ChkBoxDiv { display: inline-block; height: 100%; line-height: 30px; }
+		.Master_CheckBox .Master_ChkBoxDiv span::before, .Master_CheckBox .Master_ChkBoxDiv span::after
+		{
+			content: ""; display: block; position: absolute;
+		}
+		.Master_CheckBox .Master_ChkBoxDiv span::before
+		{
+			border: 2px solid #AAAAAA; border-top-color: transparent !important; top: 6px; left: 5px; transform-origin: 50% 50%; width: 12px; height: 12px; border-radius: 100%;
+		}
+		.Master_CheckBox .Master_ChkBoxDiv span::after
+		{
+			height: 8px; border: 1px solid #AAAAAA; top: 6px; left: 12px;
+		}
+		
+		input:checked~.Master_ChkBoxDiv label { background-color: #00CC00; box-shadow: 0px 0px 10px rgba(0,96,0,0.75); }
+		input:checked~.Master_ChkBoxDiv label span::before, input:checked~.Master_ChkBoxDiv label span::after
+		{
+			border-color: #00CC00;
+		}
+		
+		
+		.Extn_CheckBox { margin-bottom: 15px; }
+		.Extn_CheckBox input { display: none; }
+		.Extn_CheckBox .Extn_ChkBoxDiv label
+		{
+			display: inline-block; width: 32px; border-radius: 14px; vertical-align: middle; height: 14px; position: relative;
+			background-color: #AAAAAA; margin-right: 10px; margin-top: -2px; transition: all 0.2s ease-out; cursor: pointer;
+		}
+		.Extn_CheckBox .Extn_ChkBoxDiv span
+		{
+			display: inline-block; width: 10px; height: 10px; border-radius: 100%; vertical-align: top; top: 2px; left: 2px;
+			background-color: #FFFFFF; position: absolute; transition: all 0.2s ease-out;
+		}
+		.Extn_CheckBox input~.Extn_ChkBoxDiv { display: inline-block; height: 100%; line-height: 14px; }
+		input:checked~.Extn_ChkBoxDiv label { background-color: #3f71c0; }
+		input:checked~.Extn_ChkBoxDiv label span { left: 20px; }
+		
+	</style>
+	
+	<body style="margin: 0px;" ng-app="app_ELQ_SP_Settings" ng-controller="ctrl_ELQ_SP_Settings">
+		
+		<div class="Extn_Header">
+			<div class="Master_CheckBox">
+				<input type="checkbox" id="chk_ExtnStatus" ng-model="ELQ_SP_Settings.isExtnEnabled" ng-change="ELQ_SP_Settings_Save();"/>
+				<div class="Master_ChkBoxDiv">
+					<label for="chk_ExtnStatus"><span></span></label>
+				</div>
+			</div>
+			Catalyst (Lite) - Eloqua Extension
+		</div>
+		
+		<div class="Extn_CheckBox">
+			<input type="checkbox" id="chk_SaveShortcut" ng-model="ELQ_SP_Settings.Shortcuts.Save" ng-change="ELQ_SP_Settings_Save();"/>
+			<div class="Extn_ChkBoxDiv">
+				<label for="chk_SaveShortcut"><span></span></label>
+				<strong>Ctrl+S</strong> saves assets
+			</div>
+		</div>
+		<div class="Extn_CheckBox">
+			<input type="checkbox" id="chk_CopyShortcut" ng-model="ELQ_SP_Settings.Shortcuts.Copy" ng-change="ELQ_SP_Settings_Save();"/>
+			<div class="Extn_ChkBoxDiv">
+				<label for="chk_CopyShortcut"><span></span></label>
+				<strong>Ctrl+C</strong> copies assets (<strong>Ctrl+V</strong> for paste)
+			</div>
+		</div>
+		<div class="Extn_CheckBox">
+			<input type="checkbox" id="chk_DeleteShortcut" ng-model="ELQ_SP_Settings.Shortcuts.Delete" ng-change="ELQ_SP_Settings_Save();"/>
+			<div class="Extn_ChkBoxDiv">
+				<label for="chk_DeleteShortcut"><span></span></label>
+				<strong>Shift+Del</strong> deletes assets
+			</div>
+		</div>
+		<!--
+		<div class="Extn_CheckBox">
+			<input type="checkbox" id="chk_FileStorageMulti" ng-model="ELQ_SP_Settings.FileStorageMulti" ng-change="ELQ_SP_Settings_Save();"/>
+			<div class="Extn_ChkBoxDiv">
+				<label for="chk_FileStorageMulti"><span></span></label>
+				Enable multiple uploads in File Storage
+			</div>
+		</div>
+		-->
+		<div class="Extn_CheckBox">
+			<input type="checkbox" id="chk_ValidateFieldMerges" ng-model="ELQ_SP_Settings.ValidateFieldMerges" ng-change="ELQ_SP_Settings_Save();"/>
+			<div class="Extn_ChkBoxDiv">
+				<label for="chk_ValidateFieldMerges"><span></span></label>
+				Validate Fieldmerges before saving Emails &amp; Landing Pages
+			</div>
+		</div>
+		
+	</body>
+	
+	<script src="ELQ_SP_SettingsJS.js" type="text/javascript"></script>
+	
+</html>

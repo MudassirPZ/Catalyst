@@ -1,0 +1,417 @@
+<div id="ELQ_SP_App" ng-controller="ctrl_ELQ_SP">
+	
+	<div ng-show="ELQ_SP_Settings.isExtnEnabled">
+		
+		<div id="ELQ_SP_FieldMergeBrowser" class="ELQ_SP_Dialog ELQ_SP_Popup" style="display: none;">
+		
+			<div class="ELQ_SP_FMB_Title ELQ_SP_NoSelect ELQ_Draggable" data-dragoffset="true" data-dragtarget="#ELQ_SP_FieldMergeBrowser">
+				Field Merge Browser
+				<img class="ELQ_SP_CloseMessage" src="https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B06ef4d8f-2642-4db8-bce0-fb7762b1d180%7D_FMB_Close_Button_White.png" ng-click="ELQ_SP_CloseFMBrowser();"/>
+			</div>
+			<div class="ELQ_SP_Popup_Header">
+				<input type="text" id="ELQ_SP_TextBox_FMBSearch" class="ELQ_SP_PH_Element ELQ_SP_Input" ng-model="ELQ_SP_TextBox_FMBSearch" ng-keyup="ELQ_SP_SearchFieldMerges($event);" ng-disabled="ELQ_SP_FM_Loading" placeholder="Enter search keyword here..."/>
+				<button title="Search" class="ELQ_SP_PH_Element" ng-click="ELQ_SP_SearchFieldMerges(false);" ng-disabled="ELQ_SP_FM_Loading">Search</button>
+				<input type="text" id="ELQ_SP_TextBox_FMBFilter" class="ELQ_SP_PH_Element ELQ_SP_Input" ng-model="ELQ_SP_TextBox_FMBFilter" ng-disabled="ELQ_SP_FM_Loading" ng-show="ELQ_SP_FieldMerges.length > 0" placeholder="Filter results..."/>
+			</div>
+			<div class="ELQ_SP_FMB_ListContainer">
+				<div class="ELQ_SP_FMB_ListRow ELQ_SP_FMB_LRHoverable" ng-repeat="FM in ELQ_SP_FieldMerges | filter: ELQ_SP_TextBox_FMBFilter track by $index" ng-click="ELQ_SP_SelectFieldMerge(FM);" ng-class="{'ELQ_SP_FMB_Selected' : (FM == ELQ_SP_SelectedFM)}" ng-if="FM.type == 'FieldMerge'" title="{{FM.name}}">
+					<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJNJREFUeNpiYBjygBFEtPrN/o8mfgGIHas3pX4gZAATDnEDIN4PNNgAWRDILwBiAWIMwGVIPxCfRxaDecEBTRGypg9QL4GAA5JYINCLBxixWQ00cD6QSiAiDAOZKIwEBXK9AAKJQC8sYIFy9uOw4QM0Oi8gRfcHqOYNhGLhArJmKNgAFdtAKCEdgIbyB4bhDwACDACuWjpaTvwDXwAAAABJRU5ErkJggg=="/>
+					{{ FM.name }}
+				</div>
+			</div>
+			<div class="ELQ_SP_Popup_Content">
+				<div ng-if="ELQ_SP_SelectedFM.type == 'FieldMerge' && !ELQ_SP_FM_Loading">
+					<span class="ELQ_SP_Strong">Fieldmerge ID: </span>{{ ELQ_SP_SelectedFM.id }}<br/>
+					<span class="ELQ_SP_Strong">Name: </span>{{ ELQ_SP_SelectedFM.name }}<br/>
+					<span class="ELQ_SP_Strong">Syntax: </span>
+						<span onclick="ELQ_SP_SelectText(this);">&lt;span class=eloquaemail&gt;{{ ELQ_SP_SelectedFM.syntax }}&lt;/span&gt;</span>
+					<br/>
+					<span class="ELQ_SP_Strong">Folder ID: </span>{{ ELQ_SP_SelectedFM.folderId }}
+				</div>
+				<div ng-if="!ELQ_SP_SelectedFM && !ELQ_SP_FM_Loading && ELQ_SP_FM_LastSearch == ''">
+					Enter a keyword to search...<br/>Click on a Fieldmerge to view it's details or double-click a Folder to open it.
+				</div>
+				<div ng-if="ELQ_SP_FieldMerges.length <= 0 && !ELQ_SP_FM_Loading && ELQ_SP_FM_LastSearch != ''">
+					No matching Fieldmerges found...
+				</div>
+				<div ng-if="ELQ_SP_FM_Loading" style="line-height: 16px;">
+					<img src="https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B4e27fc4e-7379-4b6b-9d92-8454abca6ce9%7D_Catalyst_Loading.gif" style="vertical-align: sub;"/>&nbsp;Searching for Fieldmerges that contain <span class="ELQ_SP_Strong">{{ELQ_SP_FM_LastSearch}}</span>...
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<div id="ELQ_SP_LPBrowser" class="ELQ_SP_Dialog ELQ_SP_Popup" style="display: none;">
+		
+			<div class="ELQ_SP_FMB_Title ELQ_SP_NoSelect ELQ_Draggable" data-dragoffset="true" data-dragtarget="#ELQ_SP_LPBrowser">
+				Search LP by Vanity URL
+				<img class="ELQ_SP_CloseMessage" src="https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B06ef4d8f-2642-4db8-bce0-fb7762b1d180%7D_FMB_Close_Button_White.png" ng-click="ELQ_SP_LPFromURL.Close();"/>
+			</div>
+			<div class="ELQ_SP_Popup_Header">
+				<input type="text" id="ELQ_SP_TextBox_LPFUSearch" class="ELQ_SP_PH_Element ELQ_SP_Input" ng-model="ELQ_SP_LPFromURL.SearchKW" ng-disabled="ELQ_SP_LPFromURL.isLoading" ng-keyup="ELQ_SP_LPFromURL.Search($event);" placeholder="Enter the Vanity URL here..." style="width: 65% !important;"/>
+				<button title="Search" class="ELQ_SP_PH_Element" ng-click="ELQ_SP_LPFromURL.Search(false);" ng-disabled="ELQ_SP_LPFromURL.isLoading">Search</button>
+			</div>
+			<div class="ELQ_SP_FMB_ListContainer">
+				<div class="ELQ_SP_FMB_ListNoResults" ng-if="ELQ_SP_LPFromURL.SearchStatus == 'SUCCESS' && ELQ_SP_LPFromURL.SearchResults.length == 0 && !ELQ_SP_LPFromURL.isLoading">
+					No Results Found!
+				</div>
+				<div class="ELQ_SP_FMB_ListNoResults" ng-show="ELQ_SP_LPFromURL.isLoading">
+					<img src="https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B4e27fc4e-7379-4b6b-9d92-8454abca6ce9%7D_Catalyst_Loading.gif" style="vertical-align: sub;"/>&nbsp;Searching...
+				</div>
+				<div class="ELQ_SP_FMB_ListRow ELQ_SP_FMB_LRHoverable" ng-repeat="LP in ELQ_SP_LPFromURL.SearchResults track by $index" ng-click="ELQ_SP_LPFromURL.OpenLP(LP);" title="{{LP.name}}">
+					<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAALpJREFUeNpiYKAQMIKIUxFzBYDUfSAWwKbIbEUyI1DNfCCdiC7HhMQWIGBZAsgQrAYATf5ApIsxDGFBdyq6DqCG/1gMYYB5hxGPQrwGowQizAAiXYBiKAsxiokCxGgGqnFAV8tEggUgzfthhuA1AKjIAIjvg2gkPx8AUo5QGns0wjSDbIImLJCNhUDaH4gnomvGFo2GSJqxgQlA3AjE77HGAhCA/DeRQHA44PICKDn3ExmmHxioBQACDAAGTFBizvcn6gAAAABJRU5ErkJggg=="/>
+					{{ LP.name }}
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<div id="ELQ_SP_NamingGenerator" class="ELQ_SP_Dialog ELQ_SP_Popup ELQ_SP_PU_Large" style="display: none;" ng-class="{'ELQ_SP_ShowNG': ELQ_SP_NamingGenerator.isVisible}">
+			<div class="ELQ_SP_FMB_Title ELQ_SP_NoSelect ELQ_Draggable" data-dragoffset="true" data-dragtarget="#ELQ_SP_NamingGenerator">
+				Naming Generator
+				<img class="ELQ_SP_CloseMessage" src="https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B06ef4d8f-2642-4db8-bce0-fb7762b1d180%7D_FMB_Close_Button_White.png" ng-click="ELQ_SP_NamingGenerator.Close();" tabIndex="200"/>
+			</div>
+			<div class="ELQ_SP_Popup_Header">
+				<span class="ELQ_SP_PH_Element">Asset Name: </span>
+				<input type="text" class="ELQ_SP_PH_Element ELQ_SP_NG_AssetName ELQ_SP_Input" readonly="readonly" id="ELQ_SP_NamingGenerator" onclick="ELQ_SP_SelectText(this);" ng-value="ELQ_SP_NamingGenerator.NewAsset.GetAssetName()" tabIndex="201"/>
+				<select class="ELQ_SP_PH_Element ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.AssetType" ng-disabled="!ELQ_SP_NamingGenerator.ManualInvoke" tabIndex="202">
+					<option ng-repeat="(NG_Key, NG_Value) in ELQ_SP_NamingGenerator.AssetTypes" value="{{NG_Key}}" ng-selected="NG_Key == ELQ_SP_NamingGenerator.AssetType">{{NG_Value}}</option>
+				</select>
+			</div>
+			<div class="ELQ_SP_Popup_Content">
+				
+				<table class="ELQ_SP_TblForm" cellpadding="0" cellspacing="0" border="0">
+					
+					<tr>
+						<td><label>Program Type:</label></td>
+						<td><label>Fiscal Year:</label></td>
+						<td><label>Quarter:</label></td>
+						<td><label>Vendor:</label></td>
+					</tr>
+					<tr>
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.ProgramType" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('ProgramType')" tabIndex="203">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('ProgramType');">-- Optional --</option>
+								<option ng-repeat="(NG_Key, NG_Value) in ELQ_SP_NamingGenerator.ProgramTypes" value="{{NG_Key}}">{{NG_Value}}</option>
+							</select>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.FiscalYear" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('FiscalYear')" tabIndex="204">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('FiscalYear');">-- Optional --</option>
+								<option ng-repeat="Year in ELQ_SP_NamingGenerator.FiscalYears" value="{{Year}}">{{Year}}</option>
+							</select>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.Quarter" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('Quarter')" tabIndex="205">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('Quarter');">-- Optional --</option>
+								<option ng-repeat="Quarter in ELQ_SP_NamingGenerator.Quarters" value="{{Quarter}}">{{Quarter}}</option>
+							</select>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.Vendor" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('Vendor')" tabIndex="206">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('Vendor');">-- Optional --</option>
+								<option ng-repeat="Vendor in ELQ_SP_NamingGenerator.Vendors" value="{{Vendor}}">{{Vendor}}</option>
+							</select>
+						</td>
+					</tr>
+					
+					<tr>
+						<td><label>Country:</label></td>
+						<td colspan="2"><label>Product Name/Notes:</label></td>
+						<td><label>Technology:</label></td>
+					</tr>
+				
+					<tr class="ELQ_SP_TblFormRow">
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.Country" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('Country')" tabIndex="207">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('Country');">-- Optional --</option>
+								<option ng-repeat="(NG_Key, NG_Value) in ELQ_SP_NamingGenerator.Countries" value="{{NG_Key}}">{{NG_Value}}</option>
+							</select>
+						</td>
+						<td colspan="2" class="ELQ_SP_FormControl">
+							<input type="text" class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.ProductName" maxlength="44" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('ProductName')" id="ELQ_SP_NG_ProductName" tabIndex="208"/>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.Technology" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('Technology')" tabIndex="209">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('Technology');">-- Optional --</option>
+								<option ng-repeat="(NG_Key, NG_Value) in ELQ_SP_NamingGenerator.Technologies" value="{{NG_Key}}">{{NG_Value}}</option>
+							</select>
+						</td>
+					</tr>
+				
+					<tr>
+						<td><label>Customer Group:</label></td>
+						<td><label>Offer Type:</label></td>
+						<td><label>Responsiveness:</label></td>
+						<td><label>Host Site:</label></td>
+					</tr>
+				
+					<tr class="ELQ_SP_TblFormRow">
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.CustomerGroup" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('CustomerGroup')" tabIndex="210">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('CustomerGroup');">-- Optional --</option>
+								<option ng-repeat="(NG_Key, NG_Value) in ELQ_SP_NamingGenerator.CustomerGroups" value="{{NG_Key}}">{{NG_Value}}</option>
+							</select>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.OfferType" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('OfferType')" tabIndex="211">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('OfferType');">-- Optional --</option>
+								<option ng-repeat="(NG_Key, NG_Value) in ELQ_SP_NamingGenerator.OfferTypes" value="{{NG_Key}}">{{NG_Value}}</option>
+							</select>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.Responsiveness" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('Responsiveness')" tabIndex="212">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('Responsiveness');">-- Optional --</option>
+								<option ng-repeat="(NG_Key, NG_Value) in ELQ_SP_NamingGenerator.Responsiveness" value="{{NG_Key}}">{{NG_Value}}</option>
+							</select>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.HostSite" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('HostSite')" tabIndex="213">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('HostSite');">-- Optional --</option>
+								<option ng-repeat="(NG_Key, NG_Value) in ELQ_SP_NamingGenerator.HostSites" value="{{NG_Key}}">{{NG_Value}}</option>
+							</select>
+						</td>
+					</tr>
+					
+					<tr>
+						<td><label>Communication Type:</label></td>
+						<td><label>Template Type:</label></td>
+						<td><label>Start Month:</label></td>
+						<td><label>Version/Stage:</label></td>
+					</tr>
+					
+					<tr class="ELQ_SP_TblFormRow">
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.CommunicationType" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('CommunicationType')" tabIndex="214">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('CommunicationType');">-- Optional --</option>
+								<option ng-repeat="(NG_Key, NG_Value) in ELQ_SP_NamingGenerator.CommunicationTypes" value="{{NG_Key}}">{{NG_Value}}</option>
+							</select>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.TemplateType" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('TemplateType')" tabIndex="215">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('TemplateType');">-- Optional --</option>
+								<option ng-repeat="(NG_Key, NG_Value) in ELQ_SP_NamingGenerator.TemplateTypes" value="{{NG_Key}}">{{NG_Value}}</option>
+							</select>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.StartMonth" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('StartMonth')" tabIndex="216">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('StartMonth');">-- Optional --</option>
+								<option ng-repeat="(NG_Key, NG_Value) in ELQ_SP_NamingGenerator.StartMonths" value="{{NG_Value.MnInd}}">{{NG_Value.MnName}}</option>
+							</select>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<select class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.NewAsset.Version" ng-disabled="!ELQ_SP_NamingGenerator.ShowNGField('Version')" tabIndex="217">
+								<option value="" ng-if="ELQ_SP_NamingGenerator.ShowBlankOpt('Version');">-- Optional --</option>
+								<option ng-repeat="Version in ELQ_SP_NamingGenerator.Versions" value="{{Version}}">{{Version}}</option>
+							</select>
+						</td>
+					</tr>
+					
+					<tr><td colspan="4" style="border-bottom: 2px solid #CCCCCC;">&nbsp;</td></tr>
+					
+					<tr>
+						<td class="ELQ_SP_FormControl" style="padding-top: 5px;">
+							<label><input type="checkbox" class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.isCustomName" ng-change="ELQ_SP_NamingGenerator.CustomNameCheck();" style="display: inline-block !important; margin: 0px !important; width: auto !important; vertical-align: middle;"/>&emsp;Specify a Custom Name: </label>
+						</td>
+						<td colspan="3" class="ELQ_SP_FormControl" style="padding-top: 5px;">
+							<input type="text" class="ELQ_SP_Input" ng-model="ELQ_SP_NamingGenerator.CustomName" maxlength="255" ng-disabled="!ELQ_SP_NamingGenerator.isCustomName" id="ELQ_SP_NG_CustomName" tabIndex="218"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="4" align="center" style="text-align: center; padding: 15px; border-top: 2px solid #CCCCCC;">
+							<span ng-show="!ELQ_SP_NamingGenerator.ManualInvoke">
+								<button class="BtnMain" ng-click="ELQ_SP_NamingGenerator.UpdateName();" ng-disabled="!ELQ_SP_NamingGenerator.NewAsset.AssetNameOkay" tabIndex="219">OK</button>
+								&emsp;&emsp;&emsp;&emsp;
+							</span>
+							<button ng-click="ELQ_SP_NamingGenerator.Close();" tabIndex="220">
+								<span ng-show="!ELQ_SP_NamingGenerator.ManualInvoke">Cancel</span>
+								<span ng-show="ELQ_SP_NamingGenerator.ManualInvoke">Close</span>
+							</button></td>
+						<td></td>
+					</tr>
+					
+				</table>
+
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+		<div id="ELQ_SP_ConsoleStatus" ng-class="{'ELQ_SP_ConsoleHasStatus': ELQ_SP_ConsoleHasStatus}">
+			<span class="ELQ_SP_ConsoleStatus" ng-bind-html="TrustHTML(ELQ_SP_CurrConsoleStatus);"></span>
+		</div>
+		
+		<div id="ELQ_SP_CopyAsset" style="display: none;">
+			
+			<div class="ELQ_SP_CopyAssetEntry {{Asset.ELQ_SP_Status}}" ng-if="ELQ_SP_CopyAssets.CopyList.length > 0" ng-repeat="Asset in ELQ_SP_CopyAssets.CopyList track by $index">
+				<span class="ELQ_SP_CopyAsset_Remove" title="Remove from copy list" ng-show="!ELQ_SP_CopyAssets.Copying" ng-click="ELQ_SP_CopyAsset_Remove($index);"><img src="https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B06ef4d8f-2642-4db8-bce0-fb7762b1d180%7D_FMB_Close_Button_White.png"/></span>
+				<span class="ELQ_SP_CopyAsset_OldName" ng-bind="Asset._oldname"></span>
+				<input class="ELQ_SP_CopyAssetNewName ELQ_SP_Input" type="button" ng-disabled="ELQ_SP_CopyAssets.Copying" ng-click="ELQ_SP_CopyAssets_ShowNG(Asset);" ng-value="Asset.name"/>
+			</div>
+			
+			<div class="ELQ_SP_CopyAssetEntry {{Asset.ELQ_SP_Status}}" ng-if="ELQ_SP_DeleteAssets.DeleteList.length > 0" ng-repeat="Asset in ELQ_SP_DeleteAssets.DeleteList track by $index">
+				<span class="ELQ_SP_DeleteAsset_Name">
+					<span ng-bind-html="TrustHTML(Asset.ELQ_SP_ErrMsg);"></span>{{Asset.name}}
+				</span>
+			</div>
+			
+		</div>
+		
+		<div id="ELQ_SP_Console" class="ELQ_SP_Dialog" ng-class="{'ELQ_SP_Busy' : ELQ_SP_isBusy}">
+			
+			<div id="ELQ_SP_PreloaderCircle" class="ELQ_SP_PreloaderCircle {{ELQ_SP_PreloaderClass}}" ng-show="ELQ_SP_isLoading" ng-class="{'ShowAngularPreloader': ELQ_SP_isLoading}">
+				<div class="ELQ_SP_PreloaderIcon"></div>
+				<div class="ELQ_SP_PreloaderMessage">{{ELQ_SP_LoadingMsg}}</div>
+			</div>
+			
+			<button class="ELQ_Draggable" data-dragoffset="false" data-dragtarget="#ELQ_SP_Console" id="ELQ_SP_BtnMain" title="Click here to do things in a flash!" onclick="ELQ_SP_BtnMain_Click();"></button>
+			
+			<div class="ELQ_SP_Class_ConsoleOpts_BackDrop">
+				<div class="ELQ_SP_Class_ConsoleOpts">
+					<h3>
+						<img src="https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B43f09dc9-49d7-4bb7-bb9f-86239214ea97%7D_Catalyst_Active_128p.png" style="display: block; margin: 0 auto; margin-bottom: 30px;"/>
+						<span>Catalyst (Lite) - Console</span><br/>
+						<label style="font-size:75%; display: inline-block; margin-top: 5px;">v{{ ELQ_SP_Settings.version }}</label>
+					</h3>
+					<div class="ELQ_SP_Class_ConsoleOptsContainer">
+						<button class="ELQ_SP_ConsoleOption" onclick="ELQ_SP_SendTestEmail();">Send Test Email <span class="ELQ_SP_BlueStrong">(Ctrl+Alt+T)</span></button>
+						<button class="ELQ_SP_ConsoleOption" onclick="ELQ_SP_SendTestEmailToMyself();">Send Test Email to Myself <span class="ELQ_SP_BlueStrong">(Ctrl+Alt+M)</span></button>
+						<button class="ELQ_SP_ConsoleOption" onclick="ELQ_SP_InvokeFieldMergeLookup();">Fieldmerge Lookup <span class="ELQ_SP_BlueStrong">(Ctrl+Alt+F)</span></button>
+						<button class="ELQ_SP_ConsoleOption" onclick="ELQ_SP_OpenMyReports();">Open My Reports <span class="ELQ_SP_BlueStrong">(Ctrl+Alt+R)</span></button>
+						<button class="ELQ_SP_ConsoleOption" onclick="ELQ_SP_ViewDependencies();">View Dependencies <span class="ELQ_SP_BlueStrong">(Ctrl+Alt+D)</span></button>
+						<button class="ELQ_SP_ConsoleOption" ng-click="ELQ_SP_NamingGenerator.Show();">Naming Generator <span class="ELQ_SP_BlueStrong">(Ctrl+Alt+N)</span></button>
+						<button class="ELQ_SP_ConsoleOption" ng-click="ELQ_SP_LPFromURL.Show();">Search LP with Vanity URL</button>
+						<button class="ELQ_SP_ConsoleOption" ng-click="ELQ_SP_CDOCreator.Show();">Create/Modify a CDO <span class="ELQ_SP_BlueStrong">(Ctrl+Alt+O)</span></button>
+						<button class="ELQ_SP_ConsoleOption" id="ELQ_SP_BtnUserGuide" style="margin-left: calc(25% + 10px);">User Guide</button>
+					</div>
+				</div>
+				<button id="ELQ_SP_BtnClose" title="Close" onclick="ELQ_SP_BtnClose_Click();"></button>
+			</div>
+			
+		</div>
+		
+		
+		<div id="ELQ_SP_CampaignSearch" style="display: none;" ng-class="{'ELQ_SP_ShowCampaignSearch': ELQ_SP_CampaignSearch.Show}">
+			<span class="ELQ_SP_CS_Matches" ng-show="ELQ_SP_CampaignSearch.CurrentKW != '' || ELQ_SP_CampaignSearch.Matches > 0" ng-bind="ELQ_SP_CampaignSearch.Matches"></span>
+			<input type="text" id="ELQ_SP_CS_CurrentKW" class="ELQ_SP_Input" placeholder="Search Campaign Canvas..." ng-model="ELQ_SP_CampaignSearch.CurrentKW" ng-keyup="ELQ_SP_CampaignSearch.Search($event);" ng-blur="ELQ_SP_CampaignSearch.Close();"/>
+		</div>
+		
+		
+		<div id="ELQ_SP_EmailTestCenter" style="display: none;" ng-class="{'ELQ_SP_ShowEmailTestCenter': ELQ_SP_EmailTestCenter.isVisible}" class="ELQ_SP_FormControl">
+			<div class="ELQ_SP_ETC_Title">Send test to an Email Address:</div>
+			<input type="text" id="ELQ_SP_ETC_Textbox" class="ELQ_SP_Input" placeholder="Enter an email address..." ng-model="ELQ_SP_EmailTestCenter.EmailAddress" ng-keyup="ELQ_SP_EmailTestCenter.Send($event);" ng-focus="ELQ_SP_EmailTestCenter.ShowList = true;" ng-class="{'ELQ_SP_ETC_Invalid': !ELQ_SP_EmailTestCenter.ValidationStatus}"/>
+			<div class="ELQ_SP_ETC_List" ng-show="ELQ_SP_EmailTestCenter.ShowList">
+				<div ng-if="ELQ_SP_EmailTestCenter.EmailAddress !== '' && ELQ_SP_EmailTestCenter.FilteredList.length == 0" style="font-style: italic; font-size: 12px; font-weight: bold; color: #666666; padding: 8px 15px;">
+					<span ng-if="ELQ_SP_EmailTestCenter.ValidationStatus">Press Enter to send...</span>
+					<span ng-if="!ELQ_SP_EmailTestCenter.ValidationStatus">Enter a valid Email Address...</span>
+				</div>
+				<div class="ELQ_SP_ETC_ListEntry" ng-repeat="Recipient in ( ELQ_SP_EmailTestCenter.FilteredList = ( ELQ_SP_EmailTestCenter.List | filter: ELQ_SP_EmailTestCenter.EmailAddress ) ) track by $index" ng-click="ELQ_SP_EmailTestCenter.Send(Recipient);">
+					{{ Recipient }}
+				</div>
+			</div>
+		</div>
+		
+		
+		<div id="ELQ_SP_CDOCreator" class="ELQ_SP_Dialog ELQ_SP_Popup" style="width: 750px; display: none;">
+		
+			<div class="ELQ_SP_FMB_Title ELQ_SP_NoSelect ELQ_Draggable" data-dragoffset="true" data-dragtarget="#ELQ_SP_CDOCreator">
+				CDO Creator
+				<img class="ELQ_SP_CloseMessage" src="https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B06ef4d8f-2642-4db8-bce0-fb7762b1d180%7D_FMB_Close_Button_White.png" ng-click="ELQ_SP_CDOCreator.Close();"/>
+			</div>
+			<div class="ELQ_SP_Popup_Header" ng-show="!ELQ_SP_CDOCreator.BrowseCDO">
+				<table cellpadding="0" cellspacing="0" border="0" width="100%" class="ELQ_SP_TblForm">
+					<tr>
+						<td class="ELQ_SP_FormControl">
+							<input type="text" id="ELQ_SP_TextBox_CDOName" ng-model="ELQ_SP_CDOCreator.Name" class="ELQ_SP_PH_Element ELQ_SP_Input" ng-disabled="ELQ_SP_CDOCreator.isSaving" maxlength="50" placeholder="Enter a name for the CDO..." style="width: 100% !important;"/>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<button class="ELQ_SP_PH_Element" ng-click="ELQ_SP_CDOCreator.AddField();" ng-disabled="ELQ_SP_CDOCreator.Fields.length > 500 || ELQ_SP_CDOCreator.isSaving" style="width: 100%;">Add Field</button>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<button title="Create" class="ELQ_SP_PH_Element BtnMain" style="width: 100%;" ng-click="ELQ_SP_CDOCreator.Save();" ng-disabled="ELQ_SP_CDOCreator.isSaving || !ELQ_SP_CDOCreator.AllFieldsOkay();">
+								<span ng-if="ELQ_SP_CDOCreator.NewCDO">Create</span>
+								<span ng-if="!ELQ_SP_CDOCreator.NewCDO">Update</span>
+							</button>
+						</td>
+						<td style="text-align: center; font-weight: bold; vertical-align: middle; font-size: 12px;">or</td>
+						<td class="ELQ_SP_FormControl">
+							<button title="Create" class="ELQ_SP_PH_Element" style="width: 100%;" ng-click="ELQ_SP_CDOCreator.ToggleCDOMode();" ng-disabled="ELQ_SP_CDOCreator.isSaving">
+								<span ng-if="!ELQ_SP_CDOCreator.NewCDO">Create New CDO</span>
+								<span ng-if="ELQ_SP_CDOCreator.NewCDO">Choose Existing CDO</span>
+							</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="ELQ_SP_Popup_Header" ng-show="ELQ_SP_CDOCreator.BrowseCDO">
+				<table cellpadding="0" cellspacing="0" border="0" width="100%" class="ELQ_SP_TblForm">
+					<tr>
+						<td class="ELQ_SP_FormControl">
+							<input type="text" id="ELQ_SP_TextBox_SearchCDOKW" ng-model="ELQ_SP_CDOCreator.SearchKW" class="ELQ_SP_PH_Element ELQ_SP_Input" placeholder="Search for a CDO..." style="width: 100% !important;"/>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<button title="Create" class="ELQ_SP_PH_Element BtnMain" style="width: 100%;" ng-keyup="ELQ_SP_CDOCreator.Search($event);" ng-click="ELQ_SP_CDOCreator.Search(false);" ng-disabled="ELQ_SP_CDOCreator.isLoading">Search</button>
+						</td>
+						<td class="ELQ_SP_FormControl">
+							<button title="Create" class="ELQ_SP_PH_Element" style="width: 100%;" ng-click="ELQ_SP_CDOCreator.ToggleCDOMode();">
+								Back to New CDO
+							</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			
+			<div class="ELQ_SP_FMB_ListContainer" style="height: 450px;" ng-show="ELQ_SP_CDOCreator.BrowseCDO">
+				<div class="ELQ_SP_FMB_ListNoResults" ng-if="ELQ_SP_CDOCreator.SearchStatus == 'SUCCESS' && ELQ_SP_CDOCreator.CDOList.length == 0 && !ELQ_SP_CDOCreator.isLoading">
+					No Results Found!
+				</div>
+				<div class="ELQ_SP_FMB_ListNoResults" ng-show="ELQ_SP_CDOCreator.isLoading">
+					<img src="https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B4e27fc4e-7379-4b6b-9d92-8454abca6ce9%7D_Catalyst_Loading.gif" style="vertical-align: sub;"/>&nbsp;Loading...
+				</div>
+				<div class="ELQ_SP_FMB_ListRow ELQ_SP_FMB_LRHoverable" ng-repeat="CDO in ELQ_SP_CDOCreator.CDOList track by $index" ng-click="ELQ_SP_CDOCreator.SelectCDO(CDO);" title="{{CDO.name}}">
+					<img src="https://secure.p03.eloqua.com/EloquaImages/Icons//account.gif"/>
+					{{ CDO.name }}
+				</div>
+			</div>
+			
+			
+			<div class="ELQ_SP_FMB_ListContainer" style="height: 450px;" ng-show="!ELQ_SP_CDOCreator.BrowseCDO">
+				<div class="ELQ_SP_FMB_ListRow">
+					<table cellpadding="0" cellspacing="0" border="0" width="100%" class="ELQ_SP_TblForm">
+						<tr ng-repeat="Field in ELQ_SP_CDOCreator.Fields track by $index">
+							<td width="40" style="text-align: right;">{{$index+1}}&emsp;
+								<span ng-show="ELQ_SP_CDOCreator.Fields.length > 1">
+									<img src="https://secure.p03.eloqua.com/EloquaImages/clients/IngramMicroInc/%7B01f19c61-5dc8-4e4e-b28a-65a41d443631%7D_ELQ_SP_DeleteFieldIcon.png" ng-click="ELQ_SP_CDOCreator.RemoveField($index);" style="height: 20px; width: auto; cursor: pointer;" ng-hide="ELQ_SP_CDOCreator.isSaving" title="Remove Field"/>
+								</span>
+								<span ng-show="ELQ_SP_CDOCreator.Fields.length <= 1">&emsp;&nbsp;</span>
+							</td>
+							<td class="ELQ_SP_FormControl"><input type="text" class="ELQ_SP_Input" ng-model="Field.name" style="width: 100%;" maxlength="50" ng-disabled="ELQ_SP_CDOCreator.isSaving"/></td>
+							<td class="ELQ_SP_FormControl">
+								<select class="ELQ_SP_Input" ng-model="Field.dataType" ng-change="ELQ_SP_CDOCreator.UpdateDisplayType($index);" ng-disabled="ELQ_SP_CDOCreator.isSaving || (!ELQ_SP_CDOCreator.NewCDO && Field.id)">
+									<option ng-repeat="dt in ELQ_SP_CDOCreator.dataTypes" value="{{dt.value}}">{{dt.name}}</option>
+								</select>
+							</td>
+							<td class="ELQ_SP_FormControl">
+								<select class="ELQ_SP_Input" ng-model="Field.displayType" ng-disabled="(Field.dataType == 'largeText') || ELQ_SP_CDOCreator.isSaving">
+									<option ng-repeat="dt in ELQ_SP_CDOCreator.displayTypes" value="{{dt.value}}">{{dt.name}}</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="ELQ_SP_FMB_StatusBar" style="height: 50px; background-color: #EEEEEE;">
+				<span ng-bind-html="TrustHTML(ELQ_SP_CDOCreator.Status)"></span>
+			</div>
+		</div>
+		
+	</div>
+	
+</div>

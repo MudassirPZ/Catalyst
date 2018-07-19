@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+
+    <title>Catalyst - User Documentation</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:700,300" rel="stylesheet" type="text/css">
+    <style>
+        body {
+            background-color: #EDEDED;
+        }
+        
+        hr.bottomline {
+            width: 50px;
+            height: 3px;
+            background-color: #0572cf;
+            margin: 10px 0px !important;
+        }
+        
+        #overview {
+            padding: 15px;
+        }
+        
+        .Feature {
+            padding: 15px;
+            border-bottom: 1px solid #0572cf;
+        }
+        
+        .Feature:last-child {
+            border: none;
+        }
+        
+        #myScrollspy ..navbar-collapse {
+            padding: 0px;
+        }
+        
+        #myScrollspy .nav {
+            margin-top: 20px;
+        }
+        
+        #myScrollspy .nav .head {
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+        
+        #myScrollspy .nav li a:hover {
+            background-color: #0572cf;
+            color: #FFFFFF;
+        }
+        /* The side navigation menu */
+        
+        .sidenav {
+            height: 100%;
+            width: 0;
+            z-index: 1;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+           }
+        /* The navigation menu links */
+        
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+        /* When you mouse over the navigation links, change their color */
+        
+		.sidenav .tablinks {
+			white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
+		}
+		
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+        /* Position and style the close button (top right corner) */
+        
+        .openbtn,
+        .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+			cursor: pointer;
+        }
+        
+        .openbtn:hover,
+        .closebtn:hover {
+            text-decoration: none;
+        }
+        
+        .openbtn {
+            display: none;
+        }
+        /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+        
+        #main {
+            transition: all 0.5s; width: 70%; float: left;
+        }
+        /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+        
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+        /* Style the tab */
+        
+        .tab {
+            float: left;
+            background-color: #f1f1f1;
+            width: 30%;
+            height: 300px;
+        }
+        /* Style the buttons that are used to open the tab content */
+        
+        .tab button {
+            display: block;
+            background-color: inherit;
+            color: black;
+            padding: 22px 16px;
+            width: 100%;
+            border: none;
+            outline: none;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        /* Change background color of buttons on hover */
+        
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        /* Create an active/current"tab button" class */
+        
+        .tab button.active {
+            background-color: #ccc;
+        }
+        /* Style the tab content */
+        
+        .tabcontent {
+            float: left;
+            padding: 0px 12px;
+            width: 100%;
+            border-left: none;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body data-spy="scroll" data-target="#myScrollspy" data-offset="15">
+    <header>
+        <div class="container">
+            <div class="row" style="height:10px;background-color:#0572cf;">&nbsp;</div>
+            <div class="row">
+                <img src="Catalyst-Marquee-Image.jpg" alt="Catalyst" class="img-responsive" />
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="container" style="background-color:#FFFFFF;">
+            <div class="row" id="overview">
+                <h3>Overview</h3>
+                <hr class="bottomline" />
+                <p>A browser extension that adds/automates Eloqua features to enhance ease-of-access and reduce the time taken to get things done in Eloqua. Upon installing and enabling the extension, an Idea button appears on the bottom left of the screen
+                    (only on browser tabs running Eloqua Web App). Clicking on the button opens up a console where you can see a list of actions that you can perform through this extension. The extension also has a settings pane that allows you to choose
+                    the features that you want and you can disable the rest to make sure that Eloqua behaves just the way you want it to.</p>
+            </div>
+            <div class="row" id="features">
+                <div class="col-xs-12">
+                    <h3>Features</h3>
+                    <span href="#features" class="openbtn" id="openbtn">&#9776;</span>
+                    <span href="#features" class="closebtn" id="closebtn">&times;</span>
+                    <hr class="bottomline" />
+                </div>
+                <div class="col-xs-12" style="padding:0px; border: 1px solid #ccc;">
+                    <div id="mySidenav" class="sidenav tab">
+                        <button class="tablinks" id="openHelp_Save">Save Assets</button>
+                        <button class="tablinks" id="openHelp_Copy">Copy Assets</button>
+                        <button class="tablinks" id="openHelp_Delete">Delete Assets</button>
+                        <button class="tablinks" id="openHelp_TestEmails">Test Emails</button>
+                        <button class="tablinks" id="openHelp_Fieldmerge">Fieldmerge Lookup</button>
+                        <button class="tablinks" id="openHelp_Reports">My Reports</button>
+                        <button class="tablinks" id="openHelp_Dependencies">View Dependencies</button>
+                        <button class="tablinks" id="openHelp_NamingGenerator">Naming Generator</button>
+                        <button class="tablinks" id="openHelp_Vanity">Search LP with Vanity URL</button>
+                        <button class="tablinks" id="openHelp_CampaignCanvas">Campaign Canvas Search</button>
+                        <button class="tablinks" id="openHelp_FMValidation">Fieldmerge Validation</button>
+                        <button class="tablinks" id="openHelp_Renaming">Renaming Assets</button>
+                        <button class="tablinks" id="openHelp_BFLink">Blindform URL Generation</button>
+                    </div>
+                    <div id="main">
+                        <div id="Save" class="tabcontent">
+                            <h4>Save Assets</h4>
+                            <p>You can choose to enable the extension to save currently editing asset (Email/LP/Segment/Campaign/Form) in the most intuitive way – pressing <strong>Ctrl+S</strong>.</p>
+                        </div>
+
+                        <div id="Copy" class="tabcontent">
+                            <h4>Copy Assets</h4>
+                            <p>Although, there is an option to clone existing assets in Eloqua, it is very rigid. This extension allows you to select multiple assets and copy them by pressing Ctrl+C. You can then set the names of the to-be-created assets,
+                                navigate to the destination folder and create the copies by pressing <strong>Ctrl+V</strong>.<br /><span style="font-size:12px;font-weight:600;font-style:italic;">( Note: Assets are not cloned until you paste them with Ctrl+V )</span></p>
+                        </div>
+
+                        <div id="Delete" class="tabcontent">
+                            <h4>Delete Assets</h4>
+                            <p>Much like copying assets, there is a limitation of deleting one asset at a time in Eloqua. You can select and delete multiple assets by pressing Shift+Del. Active assets can’t be deleted through this option even though they
+                                are selected. Moreover, to prevent accidental deletion of assets, the extension will ask for your confirmation once. This feature can be enabled or disabled under the settings pane.</p>
+                        </div>
+                        <div id="TestEmails" class="tabcontent">
+                            <h4>Test Emails</h4>
+                            <p>Send test emails to yourself by opening the Email in the editor and pressing Ctrl+Alt+M (M for' Myself'). Test emails can be sent to others by using Ctrl+Alt+T. You can also send test emails from the Campaign Canvas by selecting
+                                the Email Step and using the same key combinations. Buttons for the same are available under the console.</p>
+                        </div>
+                        <div id="Fieldmerge" class="tabcontent">
+                            <h4>Fieldmerge Lookup</h4>
+                            <p>Search Fieldmerges and view their syntaxes from any screen within Eloqua. Open up the console via the Idea button and select the Fieldmerge Lookup option or press Ctrl+Alt+F on the keyboard – a popup will appear. You can enter
+                                a keyword on the textbox that says “Enter search keyword here…” and press enter or click on the Search button on the right. Once the search is complete, the popup lists all matching fieldmerges below. A Filter textbox appears
+                                beside the Search button. This can be used to instantly filter the results. Select a listed Fieldmerge to view its details on the details pane at the bottom of the popup.</p>
+                        </div>
+                        <div id="Reports" class="tabcontent">
+                            <h4>My Reports</h4>
+                            <p>You can quickly navigate to My Reports in Eloqua by pressing Ctrl+Alt+R. Although, a button is available on the console that does just the same, you are encouraged to use the shortcut.</p>
+                        </div>
+                        <div id="Dependencies" class="tabcontent">
+                            <h4>View Dependencies</h4>
+                            <p>Asset dependencies (Emails, Landing Pages, Segments and Forms) can be viewed by the shortcut Ctrl+Alt+D.</p>
+                        </div>
+                        <div id="NamingGenerator" class="tabcontent">
+                            <h4>Naming Generator</h4>
+                            <p>Emails, Campaigns, Forms, Landing Pages and Segments can be named using the Naming Generator by double-clicking the asset name in the design/editor view. You can also invoke the Naming Generator at any time using Ctrl+Alt+N
+                                or through the button on the console.</p>
+                        </div>
+                        <div id="Vanity" class="tabcontent">
+                            <h4>Search LP with Vanity URL</h4>
+                            <p>Sometimes you are required to search for a Landing Page and all you know is the Landing Page’s vanity url. The Search LP with Vanity URL allows you to do just that. It can be accessed through the console.</p>
+                        </div>
+                        <div id="CampaignCanvas" class="tabcontent">
+                            <h4>Campaign Canvas Search</h4>
+                            <p>Searching assets on the Campaign Canvas is now easier with this extension. You no longer have to look through every step to find the asset you want. Just enter the asset name or search keyword in the Search Box at the bottom
+                                right corner of your Campaign Canvas.</p>
+                        </div>
+                        <div id="FMValidation" class="tabcontent">
+                            <h4>Fieldmerge Validation</h4>
+                            <p>The extension automatically validates all Fieldmerge tags present in the Email/LP code when you click on the Save button and highlights any invalid syntax. Assets are saved only when all syntax are correct.</p>
+                        </div>
+                        <div id="Renaming" class="tabcontent">
+                            <h4>Renaming Assets</h4>
+                            <p>Go ahead and press F2 to rename the assets (Emails/LPs/Segments/Forms/Campaign Canvases).</p>
+                        </div>
+                        <div id="BFLink" class="tabcontent">
+                            <h4>Blindform URL Generation</h4>
+                            <p>Every form’s Blindform URL can be generated by clicking on the Get Blind Form Link button from the left pane in the Form design view. This also keys in the Fieldmerge syntaxes that are set for each field.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="vibrant centered">
+        <div class="container">
+            <h5>All popups displayed by the extension can be dragged. So, you can place them anywhere on your screen to comfortably work with Eloqua. You can also drag the Catalyst Icon (Light bulb) to place it anywhere on the screen.</h5>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>For any queries, contact: <a href="mailto:Mudassir.Zubair@ingrammicro.com?Subject=Catalyst%20Inquiry">Mudassir.Zubair@ingrammicro.com</a> or <a href="mailto:Pravinkumar.Gnanasekaran@ingrammicro.com?Subject=Catalyst%20Inquiry">Pravinkumar.Gnanasekaran@ingrammicro.com</a></p>
+        </div>
+    </footer>
+</body>
+<script src="userguide.js"></script>
+
+</html>

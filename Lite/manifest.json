@@ -1,0 +1,54 @@
+{
+	"name": "Catalyst (Lite) - Eloqua Extension",
+	"short_name": "Catalyst (Lite)",
+	"version": "1.0.1",
+	"manifest_version": 2,
+	"description": "Catalyst enables you to work more efficiently with Eloqua by adding features and shortcuts to most commonly used functions",
+	"icons": { "128": "Catalyst_Active_128p.png", "32": "Catalyst_Active_32p.png" },
+	"browser_action": {
+		"default_title": "Catalyst (Lite) - Eloqua Extension",
+		"default_icon": "Catalyst_Disabled_32p.png",
+		"default_popup": "/ELQ_SP_Settings.html"
+	},
+	"background": {
+		"scripts": ["jquery.min.js","ELQ_SP_Background.js"]
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"http://secure.p03.eloqua.com/*Main.aspx*",
+				"https://secure.p03.eloqua.com/*Main.aspx*"
+			],
+			"js": ["jquery.min.js","ELQ_SP_ConsoleInjector.js"],
+			"run_at": "document_start",
+			"all_frames": false
+		},
+		{
+			"matches": [
+				"http://pod03.eloquaeditors.com/*",
+				"https://pod03.eloquaeditors.com/*"
+			],
+			"js": ["jquery.min.js","ELQ_SP_CodeEditorKeyDownHook.js"],
+			"run_at": "document_end",
+			"all_frames": true
+		}
+	],
+	"permissions": [
+		"tabs",
+		"activeTab",
+		"http://secure.p03.eloqua.com/",
+		"https://secure.p03.eloqua.com/",
+		"http://pod03.eloquaeditors.com/",
+		"https://pod03.eloquaeditors.com/",
+		"storage",
+		"clipboardRead"
+	],
+	"content_security_policy": "script-src 'self'; object-src 'self'",
+	"web_accessible_resources": [
+		"*.html",
+		"*.css",
+		"*.js",
+		"*.png",
+		"*.jpg"
+	]
+}
